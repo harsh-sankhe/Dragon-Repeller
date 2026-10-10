@@ -1,0 +1,89 @@
+:root{--ink:#0b0d1a;--panel:#141830;--gold:#f2b84b;--ember:#ff7a2f;--bone:#f3e9d2;--blood:#c9302c}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#2a1f4d,var(--ink) 65%) fixed;color:var(--bone);font:500 20px/1.5 Alegreya,Georgia,serif;overflow-x:hidden}
+#game{position:relative;z-index:1;width:min(920px,100%);margin:0 auto;padding:18px 16px 40px}
+h1{margin:6px 0 14px;text-align:center;font:900 clamp(30px,6vw,46px) Cinzel,Georgia,serif;letter-spacing:.06em;color:var(--gold);text-shadow:0 0 24px #ff7a2f88,0 3px 0 #5a2d0a}
+
+#stats{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:10px;margin-bottom:12px}
+.chip{position:relative;overflow:hidden;min-height:46px;display:flex;align-items:center;padding:0 14px;background:var(--panel);border:2px solid #2d3566;border-radius:10px;font-size:20px}
+.chip b{position:relative;z-index:1;font-weight:700;display:flex;align-items:center;gap:8px;text-transform:capitalize}
+.hp i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#ee4b45,#a01620);transition:width .35s}
+.gold u{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b0,#f2b84b 55%,#9a6412);border:2px solid #7a4d0b}
+
+#stage{position:relative;height:clamp(250px,46vw,400px);border-radius:14px;overflow:hidden;border:3px solid #3a2f6b;box-shadow:0 18px 50px #000a,inset 0 0 80px #0008;--sky:#1a1a4a,#e8825a;--gr:#27402a,#15251a;--sil:polygon(0 100%,0 62%,8% 62%,10% 48%,12% 62%,22% 62%,22% 40%,28% 28%,34% 40%,34% 62%,50% 62%,50% 52%,58% 52%,58% 62%,70% 62%,72% 36%,76% 24%,80% 36%,82% 62%,100% 62%,100% 100%)}
+.bg,.ground{position:absolute;inset:0}
+.bg{background:linear-gradient(var(--sky));animation:fade .6s}
+.bg::before{content:"";position:absolute;right:14%;top:12%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff8dc,#e9d7a1);box-shadow:0 0 60px 20px #ffe9a855}
+.bg::after{content:"";position:absolute;inset:0;background:#0d0f24;clip-path:var(--sil);opacity:.92}
+.ground{top:auto;height:24%;background:linear-gradient(var(--gr));border-top:3px solid #0006}
+@keyframes fade{from{opacity:.2}}
+[data-scene=store]{--sky:#3a2414,#7a4a22;--gr:#4a2e1a,#24150b;--sil:polygon(0 0,100% 0,100% 100%,0 100%,0 18%,12% 18%,12% 34%,38% 34%,38% 18%,62% 18%,62% 34%,88% 34%,88% 18%,100% 18%)}
+[data-scene=store] .bg::before{right:46%;top:6%;background:radial-gradient(#ffd27a,#ff9a3c);box-shadow:0 0 90px 40px #ff9a3c66}
+[data-scene=cave],[data-scene=fight0],[data-scene=fight1]{--sky:#0a0a14,#2b2540;--gr:#2a2535,#120f1a;--sil:polygon(0 0,100% 0,100% 18%,94% 8%,90% 30%,84% 10%,76% 26%,68% 6%,60% 24%,50% 10%,42% 30%,34% 8%,26% 28%,18% 6%,10% 26%,4% 8%,0 20%)}
+[data-scene=cave] .bg::before,[data-scene=fight0] .bg::before,[data-scene=fight1] .bg::before{background:radial-gradient(#9be7ff,#3a7bd5);box-shadow:0 0 70px 24px #3a7bd555;width:30px;height:30px;right:30%;top:30%}
+[data-scene=fight2]{--sky:#2b0508,#c4380f;--gr:#3a1410,#14060a;--sil:polygon(0 100%,0 60%,14% 40%,24% 58%,38% 30%,52% 56%,66% 24%,80% 52%,90% 38%,100% 58%,100% 100%)}
+[data-scene=fight2] .bg::before{background:radial-gradient(#ffd27a,#ff5a1f);box-shadow:0 0 90px 36px #ff5a1f77}
+[data-scene=egg]{--sky:#120a33,#6a2fa3;--gr:#201046,#0b0624}
+[data-scene=win]{--sky:#3b2a08,#ffcf5a;--gr:#3d5a2a,#1a2a12}
+[data-scene=lose]{--sky:#0a0a0a,#3a3a44;--gr:#1a1a1f,#08080a}
+[data-scene=lose] .bg::before{background:#777;box-shadow:none}
+
+.actor{position:absolute;bottom:8%;z-index:2;transition:transform .15s}
+.actor svg{width:100%;display:block;overflow:visible;filter:drop-shadow(0 6px 6px #0008)}
+#hero{left:9%;width:24%}
+#monster{right:7%;width:30%}
+#monster.m2{width:45%;right:3%}
+#monster.m2 svg{filter:drop-shadow(0 0 22px #ff3b1a99)}
+#hero svg,#monster svg{animation:bob 2.4s ease-in-out infinite}
+#monster svg{animation-duration:1.9s}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.weapon{transform-origin:0 0;transform:rotate(14deg)}
+.swing .weapon{animation:swing .4s}
+@keyframes swing{40%{transform:rotate(95deg)}}
+.swing{animation:lunge .4s}
+@keyframes lunge{40%{transform:translateX(46px)}}
+.mlunge{animation:mlunge .4s}
+@keyframes mlunge{40%{transform:translateX(-46px)}}
+.hurt{animation:hurt .4s}
+@keyframes hurt{20%,60%{transform:translateX(8px);filter:brightness(2.2) saturate(0)}40%,80%{transform:translateX(-8px)}}
+.dodge{animation:dodge .5s}
+@keyframes dodge{40%{transform:translateX(-40px);opacity:.5}}
+.dead{animation:die 1s forwards}
+@keyframes die{to{transform:translateY(40px) scale(.9);opacity:0;filter:grayscale(1)}}
+.gone{display:none}
+
+#monsterStats{display:none;position:absolute;z-index:3;top:12px;right:12px;width:min(220px,44%);padding:8px 12px;background:#140a14dd;border:2px solid #7a2630;border-radius:10px;font-size:20px}
+#monsterStats b{display:block;text-transform:capitalize;font-family:Cinzel,serif;font-size:19px;color:#ffb3a8}
+.bar{height:12px;margin:6px 0 2px;background:#000a;border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(#ff6b5e,#b3202a);transition:width .35s}
+
+#fx{position:absolute;inset:0;z-index:5;pointer-events:none}
+.pop{position:absolute;font:900 34px Cinzel,serif;color:#fff;text-shadow:0 3px 0 #000,0 0 14px #000;animation:pop 1s forwards}
+.pop.dmg{color:#ff6b5e}.pop.miss{color:#bcc3e6;font-size:26px}
+@keyframes pop{to{transform:translateY(-70px);opacity:0}}
+.flash{position:absolute;inset:0;background:#ff2a1a;animation:flash .35s forwards}
+@keyframes flash{from{opacity:.4}to{opacity:0}}
+
+#text{min-height:140px;margin:14px 0;padding:18px 22px;background:linear-gradient(#1a1f42,#10132b);border:2px solid #3a4286;border-left:6px solid var(--ember);border-radius:10px;font-size:22px;line-height:1.55;white-space:pre-line;box-shadow:0 8px 24px #0006}
+#controls{display:flex;flex-wrap:wrap;gap:14px}
+button{cursor:pointer;min-height:58px;padding:8px 12px;font:900 17px/1.2 Cinzel,Georgia,serif;letter-spacing:.03em;color:#2a1604;background:linear-gradient(#ffd877,#e39a22 60%,#c27a12);border:2px solid #fff0b8;border-radius:10px;box-shadow:0 5px 0 #7a4709,0 10px 20px #0007;transition:transform .08s,box-shadow .08s,filter .15s}
+button:hover{filter:brightness(1.12)}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 #7a4709}
+button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+#embers{position:fixed;inset:0;pointer-events:none;z-index:0}
+#embers i{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px 2px #ff7a2f;opacity:0;animation:rise linear infinite}
+@keyframes rise{10%{opacity:.9}to{transform:translate(40px,-105vh);opacity:0}}
+
+@media(max-width:640px){body{font-size:18px}#stats{grid-template-columns:1fr 1fr}.chip{min-height:42px;font-size:18px}#stage{height:auto;aspect-ratio:4/3}#text{font-size:19px;padding:14px 16px}#controls button{flex-basis:100%;min-height:56px}#hero{width:30%}#monster{width:38%}#monster.m2{width:54%}.pop{font-size:28px}}
+@media(max-height:560px) and (orientation:landscape){h1{display:none}#stage{height:180px}#hero{width:16%}#monster{width:20%}#monster.m2{width:32%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+body{-webkit-tap-highlight-color:transparent;min-height:100dvh}
+#game{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(40px,env(safe-area-inset-bottom))}
+button{touch-action:manipulation}
+button[hidden]{display:none}
+#controls button{flex:1 1 200px}
+.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translate(-5px,3px)}50%{transform:translate(5px,-3px)}75%{transform:translate(-3px,-2px)}}
+.fire{position:absolute;left:30%;bottom:22%;width:36%;height:15%;border-radius:50%;background:radial-gradient(ellipse at 90% 50%,#fff4b0,#ffa530 35%,#ff3b1a 65%,transparent 72%);transform-origin:100% 50%;animation:fire .5s forwards;filter:blur(1px)}
+@keyframes fire{from{transform:scaleX(.1)}60%{opacity:1}to{transform:scaleX(1);opacity:0}}

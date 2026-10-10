@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Repeller</title>
+  <meta name="description" content="A tiny fantasy RPG. Gear up, clear the cave and slay the dragon.">
+  <meta name="theme-color" content="#0b0d1a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%90%89%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="embers"></div>
+  <main id="game">
+    <h1>Dragon Repeller</h1>
+
+    <section id="stats">
+      <div class="chip hp"><i style="width:100%" id="healthBar"></i><b>Health <span id="healthText">100</span></b></div>
+      <div class="chip"><b>XP <span id="xpText">0</span></b></div>
+      <div class="chip gold"><b><u></u><span id="goldText">50</span></b></div>
+      <div class="chip"><b id="weaponText">Stick</b></div>
+    </section>
+
+    <section id="stage" data-scene="town">
+      <div class="bg"></div>
+      <div class="ground"></div>
+      <div id="hero" class="actor"></div>
+      <div id="monster" class="actor gone"></div>
+      <div id="monsterStats">
+        <b id="monsterName"></b>
+        <div class="bar"><i id="monsterBar"></i></div>
+        <span id="monsterHealth"></span>
+      </div>
+      <div id="fx"></div>
+    </section>
+
+    <section id="text">
+      You are in the town square.
+    </section>
+
+    <section id="controls">
+      <button id="button1">Go to store</button>
+      <button id="button2">Go to cave</button>
+      <button id="button3">Fight dragon</button>
+    </section>
+  </main>
+  <script src="./script.js"></script>
+</body>
+</html>
