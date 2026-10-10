@@ -2,7 +2,7 @@
 
 A small browser RPG. You start in a town with 50 gold and a stick, and a dragon is stopping everyone from leaving. Buy better weapons, grind some monsters in the cave, and take it down.
 
-**Play it here:** [YOUR-VERCEL-LINK](YOUR-VERCEL-LINK)
+**Play it here:** [Dragon Repeller](https://dragon-repeller-plum.vercel.app/)
 
 ## How to play
 
@@ -41,7 +41,3 @@ script.js    game logic and the character artwork
 ## Built with
 
 Plain HTML, CSS and JavaScript. All the characters, weapons and backgrounds are drawn in code (SVG and CSS), so there are no image files. Works on both desktop and mobile.
-
-## Credits
-
-Based on the Dragon Repeller RPG project from freeCodeCamp. I rebuilt the visuals and tweaked some of the game logic.
